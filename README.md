@@ -18,12 +18,24 @@ amqp.connect().then(function(conn) {
     require('amqp-delay.node')(channel);
     var ok = channel.assertExchange('foo', 'fanout', {durable: true});
 
-    function handleMessage(msg) {
-      console.log(msg);
+    function handleMessage(err, msg, channel) {
+      if (err) {
+        // failed after all retries, and message is already rejected
+        // add your own error handling
+        console.error(err, 'Message processing failed');
+      }
 
-      // no need to 'ack' or 'nack' messages
       // messages that generate an exception (or a rejected promise) will be retried
       throw new Error('Boom!');
+
+      // calling retry explicitly will also retry message
+      channel.retry(new Error('Boom!'), msg);
+
+      // ack message when message is processed successfully
+      channel.ack(msg);
+
+      // or simply discard message in case no retry is needed
+      channel.reject(msg);
     }
 
     ok = ok.then(function () {
@@ -32,10 +44,10 @@ amqp.connect().then(function(conn) {
 
     ok = ok.then(function () {
       var initialDelay = 4000;
-      var limit = 5;
+      var retries = 5;
 
       // without retry: channel.consume('bar', handleMessage, [options])
-      return channel.consume('bar', retry(initialDelay, limit, {
+      return channel.consume('bar', retry(initialDelay, retries, {
         channel: channel,
         queue: 'bar',
         handler: handleMessage
