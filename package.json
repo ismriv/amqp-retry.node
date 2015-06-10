@@ -1,7 +1,7 @@
 {
   "name": "amqp-retry.node",
   "description": "Retry failed attempts to consume a message, with exponential backoff (or custom) strategy.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "keywords": [
     "amqp",
     "rabbitmq",
