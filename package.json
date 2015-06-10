@@ -1,0 +1,20 @@
+{
+  "name": "amqp-retry.node",
+  "description": "Retry failed attempts to consume a message, with exponential backoff (or custom) strategy.",
+  "version": "0.1.0",
+  "keywords": [
+    "amqp",
+    "rabbitmq",
+    "amqplib",
+    "retry",
+    "backoff"
+  ],
+  "repository": "git://github.com/ismriv/amqp-retry.node.git",
+  "author": "Ismael Rivera <me@ismaelrivera.es>",
+  "dependencies": {
+    "amqp-delay.node": "0.1.x",
+    "amqplib": "0.3.x",
+    "bluebird": "2.x"
+  },
+  "scripts": {}
+}
