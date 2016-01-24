@@ -61,5 +61,9 @@ amqp.connect().then(function(conn) {
 }).then(null, console.warn);
 ```
 
+## License
+
+[MIT](http://opensource.org/licenses/MIT) © Ismael Rivera
+
 [npm-image]: https://img.shields.io/npm/v/amqp-retry.node.svg?style=flat
 [npm-url]: https://npmjs.org/package/amqp-retry.node

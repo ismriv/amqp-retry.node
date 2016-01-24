@@ -36,7 +36,7 @@ module.exports = function wrapper(initialDelay, retries, opts) {
 
   function retry(err, msg) {
     return Promise.resolve(msg).then(errorHandler.bind(null, err, msg)).catch(function (err) {
-      // requeue message if something goes wrong when processing the errorneous
+      // requeue message if something goes wrong when processing the erroneous
       // message that requeues it with delay...
       opts.channel.nack(msg);
       throw err;
